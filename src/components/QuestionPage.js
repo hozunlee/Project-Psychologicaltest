@@ -4,10 +4,14 @@ const QuestionPage = ( { history } ) => {
 
     return (
         <div>
-            <h1>당신은 퐁퐁단이 맞습니다</h1>
-            <h3> 양든퐁퐁😆 </h3>
             <button onClick={ () => {history.goBack()} }> 뒤로 버튼 </button>
+            <h1>검사예시</h1>
+            <h3> 직업과 관련된 블라블라 </h3>
+            <button onClick={ (event) => {
+                alert('완료');
+                history.push("/ResultPage")}}> 결과보기 </button>
         </div>
+        
     );
 }
 

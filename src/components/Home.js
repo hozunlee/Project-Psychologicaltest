@@ -2,9 +2,33 @@ import React, {useState} from 'react';
 
 
 const Home = ( { history } ) => {
-    const [name, setName] = useState('');
-    const [gender, setGender] = useState('');
+    const [inputs, setInputs] = useState({
+        name: "",
+        gender: "",
+        buttonChange: ""
+    })
 
+    const {name, gender, buttonChange} = inputs;
+
+
+    const genderHandler = (e) => {
+        setInputs({
+            ...inputs,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    // const btnActive= (e) => {
+    //     if (
+    //         name !== '' &&
+    //         gender !== ''
+    //     ) setInputs({
+    //         ...inputs,
+    //         [e.target.name]: 'disable'
+    //     });
+    // }
+    
+    
 
     return (
         <div>
@@ -18,7 +42,10 @@ const Home = ( { history } ) => {
                 name="name"
                 value={name}
                 onChange={(event) => {
-                    setName(event.target.value);
+                    setInputs({
+                        ...inputs,
+                        [event.target.name]: event.target.value
+                    });
                 }
 
                 }
@@ -31,17 +58,23 @@ const Home = ( { history } ) => {
                 <input type='radio'
                 name='gender'
                 value='male'
-                onclick='' />남성
+                onChange={genderHandler} />남성
                 <input type='radio'
                 name='gender'
                 value='female'
-                onclick='' />여성
+                onChange={genderHandler} />여성
                 <br />
             </div>
 
-            <button onClick={ (event) => {
-                alert(name);
-                history.push("/QuestionPage")}}> 검사 시작 </button>
+            <button 
+            type="button"
+            value="buttonChange"
+            disabled={buttonChange}
+            onClick={ (event) => {
+                alert(name + gender);
+                history.push("/QuestionPage")
+                
+                }}> 검사 시작 </button>
         </div>
     );
 }
