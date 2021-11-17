@@ -7,6 +7,7 @@ const Home = ( { history } ) => {
         gender: "",
         buttonChange: ""
     })
+    // const [btn, setBtn] = useState(true)
 
     const {name, gender, buttonChange} = inputs;
 
@@ -17,16 +18,7 @@ const Home = ( { history } ) => {
             [e.target.name]: e.target.value
         });
     };
-
-    // const btnActive= (e) => {
-    //     if (
-    //         name !== '' &&
-    //         gender !== ''
-    //     ) setInputs({
-    //         ...inputs,
-    //         [e.target.name]: 'disable'
-    //     });
-    // }
+        
     
     
 
@@ -69,7 +61,11 @@ const Home = ( { history } ) => {
             <button 
             type="button"
             value="buttonChange"
-            disabled={buttonChange}
+            disabled={
+                name.length !== 0 &&
+                gender.length !== 0
+                ? false:true
+            }
             onClick={ (event) => {
                 alert(name + gender);
                 history.push("/QuestionPage")
