@@ -8,3 +8,7 @@ React 개발환경 완성
 React router를 이용한 페이지 간 이동 구현
 
 Home, QuestionPage, ResultPage 주제별 컴포넌트 분할
+
+> 211116 day-2
+
+home.js/ name, gender 입력 시 btn 활성화 구현

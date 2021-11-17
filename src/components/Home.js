@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button} from "react-bootstrap";
 
 const Home = ( { history } ) => {
     const [inputs, setInputs] = useState({
         name: "",
-        gender: "",
-        buttonChange: ""
+        gender: ""
     })
-    // const [btn, setBtn] = useState(true)
 
-    const {name, gender, buttonChange} = inputs;
+    const {name, gender } = inputs;
 
 
     const genderHandler = (e) => {
@@ -57,20 +56,23 @@ const Home = ( { history } ) => {
                 onChange={genderHandler} />여성
                 <br />
             </div>
-
-            <button 
-            type="button"
-            value="buttonChange"
-            disabled={
-                name.length !== 0 &&
-                gender.length !== 0
-                ? false:true
-            }
-            onClick={ (event) => {
-                alert(name + gender);
-                history.push("/QuestionPage")
+            <div className="mb-2">
+                <Button
+                variant="primary"
+                size="lg"
+                type="button"
+                value="buttonChange"
+                disabled={
+                    name.length !== 0 &&
+                    gender.length !== 0
+                    ? false:true
+                }
+                onClick={ (event) => {
+                    alert(name + gender);
+                    history.push("/ExPage")
                 
-                }}> 검사 시작 </button>
+                    }}> 검사 시작 </Button>{' '}
+            </div>
         </div>
     );
 }
