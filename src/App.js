@@ -17,7 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [getData, setGetData] = useState([]);
-  const [now, setNow] = useState(10);
+  const [now, setNow] = useState(15);
 
   useEffect(() => {
     console.log("loading");
@@ -39,12 +39,10 @@ function App() {
     <div className="App">
       <Router>
         <Route path="/" exact component={Home} now={now} />
-        <Route path="/ExPage"render={(props) => <ExPage now={now} {...props} />} />
-        <Route path="/QuestionPage" component={QuestionPage} />
+        <Route path="/ExPage" render={(props) => <ExPage now={now} getData={getData} {...props} />} />
+        <Route path="/QuestionPage" render={(props) => <QuestionPage now={now} {...props} />} />
         <Route path="/ResultPage" component={ResultPage} />
-        <Route path="/Test">
-          <Tesss getData={getData}></Tesss>
-        </Route>
+        <Route path="/Test" render={(props) => <Tesss getData={getData} {...props} />}/>
       </Router>
             
     </div>

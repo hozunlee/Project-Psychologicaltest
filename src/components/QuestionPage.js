@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import Tesss from './Tesss';
 
-
-const QuestionPage = ( { history } ) => {
-    const [now, setNow] = useState (0);
+const QuestionPage = ( { history, now } ) => {
 
 
     return (
@@ -23,6 +22,7 @@ const QuestionPage = ( { history } ) => {
             <label for="answer">test</label>
             <input type="radio" name="answer" value="answer"></input>
             <label for="answer">test</label>
+            <Tesss></Tesss>
             <br/>
             <button onClick={ (event) => {
                 alert('완료');
