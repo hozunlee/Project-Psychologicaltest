@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
-const Home = ( { history, now } ) => {
+const Home = ( { history, now, setNow } ) => {
     const [inputs, setInputs] = useState({
         name: "",
         gender: ""
@@ -67,7 +67,7 @@ const Home = ( { history, now } ) => {
                 onClick={ (event) => {
                     alert(name + gender);
                     history.push("/ExPage")
-                
+                    
                     }}> 검사 시작 </Button>{' '}
             </div>
         </div>
