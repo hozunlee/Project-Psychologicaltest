@@ -37,6 +37,11 @@
   }
 }
 
+html,
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
 .testSt {
   background-color: white;
   color: blue;

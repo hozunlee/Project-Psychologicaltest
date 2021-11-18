@@ -10,10 +10,10 @@ import ResultPage from './components/ResultPage';
 import ExPage from './components/ExPage';
 import Tesss from './components/Tesss';
 
+
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// // src = https://www.career.go.kr/inspct/openapi/test/questions?apikey=ca68cf13d92ce0d85b612e6e18c57e33&q=6
 
 function App() {
   const [getData, setGetData] = useState([]);
@@ -40,11 +40,12 @@ function App() {
       <Router>
         <Route path="/" exact component={Home} now={now} />
         <Route path="/ExPage" render={(props) => <ExPage now={now} getData={getData} {...props} />} />
-        <Route path="/QuestionPage" render={(props) => <QuestionPage now={now} {...props} />} />
+        <Route path="/QuestionPage" render={(props) => <QuestionPage now={now} getData={getData} {...props} />} />
         <Route path="/ResultPage" component={ResultPage} />
         <Route path="/Test" render={(props) => <Tesss getData={getData} {...props} />}/>
+        
       </Router>
-            
+
     </div>
   );
 }
