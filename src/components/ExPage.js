@@ -3,12 +3,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 
 
-// src = https://www.career.go.kr/inspct/openapi/test/questions?apikey=ca68cf13d92ce0d85b612e6e18c57e33&q=6
 
-const ExPage = ( { history } ) => {
-    const now = 0;
-    
 
+const ExPage = ( { history, now } ) => {
     
     
 
@@ -28,10 +25,7 @@ const ExPage = ( { history } ) => {
             <form>
                 
             </form>
-            <input type="radio" name="answer" value="answer"></input>
-            <label for="answer">test</label>
-            <input type="radio" name="answer" value="answer"></input>
-            <label for="answer">test</label>
+
             <br/>
             <button onClick={ (event) => {
                 alert('완료');

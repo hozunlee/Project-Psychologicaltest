@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar'
-import axios from 'axios';
+
 
 const QuestionPage = ( { history } ) => {
-    const now = 0;
+    const [now, setNow] = useState (0);
 
 
     return (

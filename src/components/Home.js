@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
-const Home = ( { history } ) => {
+const Home = ( { history, now } ) => {
     const [inputs, setInputs] = useState({
         name: "",
         gender: ""
@@ -62,11 +63,7 @@ const Home = ( { history } ) => {
                 size="lg"
                 type="button"
                 value="buttonChange"
-                disabled={
-                    name.length !== 0 &&
-                    gender.length !== 0
-                    ? false:true
-                }
+                disabled={!name || !gender}
                 onClick={ (event) => {
                     alert(name + gender);
                     history.push("/ExPage")
