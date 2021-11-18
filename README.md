@@ -19,3 +19,5 @@ home.js/ name, gender 입력 시 btn 활성화 구현
 
 styled-components 설치
 //yarn add styled-components
+
+yarn add react-paginate 설치
