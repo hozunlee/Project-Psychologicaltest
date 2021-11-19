@@ -7,8 +7,9 @@ import styled from "styled-components";
 
 
 
-const ExPage = ( { history, now } ) => {
+const ExPage = ( { history } ) => {
     const [exData, setExData] = useState([]);
+    const [now1, setNow1] = useState(0);
 
     const Testbox = styled.div`
     background-color: ${props => props.color || "palevioletred"};
@@ -42,8 +43,8 @@ const ExPage = ( { history, now } ) => {
             <button onClick={ () => {history.goBack()} }> 뒤로 버튼 </button>
             <h1>검사 예시</h1>
             <div>
-                <p>{now}%</p>
-                <ProgressBar now={now} label={`${now}%`} />
+                <p>{now1}%</p>
+                <ProgressBar now={now1} label={`${now1}%`} />
                 
             </div>
             <br/>

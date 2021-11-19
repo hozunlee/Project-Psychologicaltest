@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import ReactPaginate from 'react-paginate'
 import styled from 'styled-components';
+import axios from 'axios';
 
-const QuestionPage = ( { history, now, getData } ) => {
+const QuestionPage = ( { history } ) => {
+    const [getData, setGetData] = useState([]);
+    const [now, setNow] = useState(0);
+
+    useEffect(() => {
+        console.log("loading");
+        async function loadQuestion() {
+        try {
+            const response = await axios.get(`https://www.career.go.kr/inspct/openapi/test/questions?apikey=ca68cf13d92ce0d85b612e6e18c57e33&q=6`);
+    
+            setGetData(response.data.RESULT);
+            
+        } catch (e) {
+            console.log('Error');
+        }
+    
+        } loadQuestion();
+      }, []); //2번째 array를 비워두면 한번만 실행하라는 뜻
+    console.log(getData);
+
 
     const [pageNumber, setPageNumber] = useState(0)
 
@@ -81,8 +101,8 @@ const AnyButton = styled.button`
     font-size: 50px;
 `;
 
-const Pnum = styled.div`
-    font-size: 50px;
+const Ulcount = styled.section`
+    display: None;
 `;
 
 export default QuestionPage;
