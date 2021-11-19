@@ -21,3 +21,10 @@ styled-components 설치
 //yarn add styled-components
 
 yarn add react-paginate 설치
+
+
+> 211119 day-4
+
+app.js엔 쿼리 호출에 관한 코드나 데이터 관리 state는 안넣는게 좋음. 
+쿼리 호출할 때마다 앱 전체가 리렌더링되기 때문
+쿼리 호출하는 부분은 QuestionPage.js로 이동

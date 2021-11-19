@@ -7,6 +7,21 @@ import axios from 'axios';
 const QuestionPage = ( { history } ) => {
     const [getData, setGetData] = useState([]);
     const [now, setNow] = useState(0);
+    const [saveData, setSaveData] = useState([]
+
+    ); 
+    //TODO QuestionPage.js에 state를 하나 더 만들고, 그 state에 답변 59개가 꽉 차면 history.push할 때 params로 결과지를 같이 넘기면 됩니다.
+
+    const onDateAdd = (e) => {
+        const { value, name } = e.target;
+        setSaveData([
+            ...saveData,
+            value
+        ])
+        if(saveData.length >= 0){
+            return setNow(now + 4);}
+    }
+    console.log(saveData)
 
     useEffect(() => {
         console.log("loading");
@@ -35,17 +50,24 @@ const QuestionPage = ( { history } ) => {
         .slice(pageVisited, pageVisited + DatasPerPage)
         .map((item) => {
             return (
-                <div className='testSheet'>
-                    <h6 key={item.qitemNo}> Q{item.qitemNo}. {item.question}</h6>
-                    <form>
-                        <input type="radio" name="answer" value="answer"></input>
-                        <label for="answer">{item.answer01}</label>
-                        
-                        <input type="radio" name="answer" value="answer"></input>
-                        <label for="answer">{item.answer02}</label>
-                        
-                    </form>
-                </div>
+                <div>
+                    <Testbox>
+                        <h6 key={item.qitemNo}> Q{item.qitemNo}. {item.question}</h6>
+                        <form> 
+                            <input type="radio" name={item.qitemNo} value={item.answer01}
+                            onChange={onDateAdd}
+                            ></input>
+                            <label for="answer">{item.answer01}</label>
+                            
+                            <input type="radio" name={item.qitemNo} value={item.answer02}
+                            onChange={onDateAdd}
+                            ></input>
+                            <label for="answer">{item.answer02}</label>
+                            
+                        </form>
+                    </Testbox>
+                    <br />
+                </div> //TODO input에 클릭한 버튼이 saveData 에 저장되는지 확인!
             )
         });
 
@@ -91,6 +113,9 @@ const QuestionPage = ( { history } ) => {
     );
 }
 
+
+
+
 const AnyButton = styled.button`
     text-align: center;
     border: 0;
@@ -101,8 +126,18 @@ const AnyButton = styled.button`
     font-size: 50px;
 `;
 
-const Ulcount = styled.section`
+const NumCount = styled.div`
     display: None;
+`;
+
+const Testbox = styled.div`
+background-color: ${props => props.color || "palevioletred"};
+    width: 50%;
+    height: 50%;
+    border-radius: 3px;
+    border : 3px;
+    display: block;
+    margin : auto;
 `;
 
 export default QuestionPage;
