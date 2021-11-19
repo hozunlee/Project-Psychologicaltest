@@ -16,7 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
-  const [getData, setGetData] = useState([]);
+  const [getData, setGetData] = useState([]); //FIXME QuestionPage로 이관시켜야함.
   const [now, setNow] = useState(0);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function App() {
 
     } loadQuestion();
   }, []); //2번째 array를 비워두면 한번만 실행하라는 뜻
-  console.log(getData);
+  console.log(getData); 
 
   return (
     <div className="App">
@@ -45,9 +45,12 @@ function App() {
         <Route path="/Test" render={(props) => <Tesss getData={getData} {...props} />}/>
         
       </Router>
-      <p>진행상황</p>
-    </div>
+      
+    </div>//
   );
 }
 
 export default App;
+
+
+

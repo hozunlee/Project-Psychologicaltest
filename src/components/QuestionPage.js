@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import ReactPaginate from 'react-paginate'
+import styled from 'styled-components';
 
 const QuestionPage = ( { history, now, getData } ) => {
 
@@ -52,9 +53,9 @@ const QuestionPage = ( { history, now, getData } ) => {
             <div>
                 {displayData} 
                 <ReactPaginate
-                    previousLabel={"Previous"}
-                    nextLabel={"Next"}
-                    pageCount={pageCount}
+                    previousLabel={<AnyButton>Previous</AnyButton>}
+                    nextLabel={<AnyButton>Next</AnyButton>}
+                    pageCount={pageCount} //TODO 숫자 나오는 부분을 css로 display:none 해줬어요!
                     onPageChange={changePage}
                     theme="square-fill"
                 />
@@ -69,5 +70,19 @@ const QuestionPage = ( { history, now, getData } ) => {
         
     );
 }
+
+const AnyButton = styled.button`
+    text-align: center;
+    border: 0;
+    border-radius: 30px;
+    width: 30vw;
+    background: skyblue;
+    color: #fff;
+    font-size: 50px;
+`;
+
+const Pnum = styled.div`
+    font-size: 50px;
+`;
 
 export default QuestionPage;
