@@ -11,15 +11,7 @@ const ExPage = ( { history } ) => {
     const [exData, setExData] = useState([]);
     const [now1, setNow1] = useState(0);
 
-    const Testbox = styled.div`
-    background-color: ${props => props.color || "palevioletred"};
-        width: 50%;
-        height: 50%;
-        border-radius: 3px;
-        border : 3px;
-        display: block;
-        margin : auto;
-    `;
+
 
     useEffect(() => {
         console.log("loading");
@@ -61,12 +53,36 @@ const ExPage = ( { history } ) => {
                 <p>{exData.answer04}</p>
             </Testbox>
             <br/>
-            <button onClick={ (event) => {
+            <AnyButton 
+            onClick={ (event) => {
                 alert('완료');
-                history.push("/QuestionPage")}}> 시작하기 </button>
+                history.push("/QuestionPage")}}
+                disabled={!exData}
+                
+                > 시작하기 </AnyButton>
         </div>
         
     );
 }
+
+const AnyButton = styled.button`
+    text-align: center;
+    border: 0;
+    border-radius: 30px;
+    width: 30vw;
+    background: skyblue;
+    color: #fff;
+    font-size: 50px;
+`;
+
+const Testbox = styled.div`
+background-color: ${props => props.color || "palevioletred"};
+    width: 50%;
+    height: 50%;
+    border-radius: 3px;
+    border : 3px;
+    display: block;
+    margin : auto;
+`;
 
 export default ExPage;
