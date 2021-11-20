@@ -49,3 +49,7 @@ body {
   font-family: Arial;
   text-align: center;
 }
+
+.numbering {
+  display: None;
+}

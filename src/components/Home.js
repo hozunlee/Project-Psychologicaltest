@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import styled from 'styled-components';
+
 
 const Home = ( { history, now, setNow } ) => {
     const [inputs, setInputs] = useState({
@@ -58,7 +59,7 @@ const Home = ( { history, now, setNow } ) => {
                 <br />
             </div>
             <div className="mb-2">
-                <Button
+                <AnyButton
                 variant="primary"
                 size="lg"
                 type="button"
@@ -68,10 +69,22 @@ const Home = ( { history, now, setNow } ) => {
                     alert(name + gender);
                     history.push("/ExPage")
                     
-                    }}> 검사 시작 </Button>{' '}
+                    }}> 검사 시작 </AnyButton>
             </div>
         </div>
     );
 }
+
+
+const AnyButton = styled.button`
+    text-align: center;
+    border: 0;
+    border-radius: 30px;
+    width: 30vw;
+    background: skyblue;
+    color: #fff;
+    font-size: 50px;
+`;
+
 
 export default Home;

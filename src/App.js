@@ -24,7 +24,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/ExPage" render={(props) => <ExPage  {...props} />} />
         <Route path="/QuestionPage" render={(props) => <QuestionPage {...props} />} />
-        <Route path="/ResultPage" component={ResultPage} />
+        <Route path="/ResultPage/:name" component={ResultPage} />
         <Route path="/Test" render={(props) => <Tesss  {...props} />}/>
         
       </Router>
