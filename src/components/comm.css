@@ -1,3 +1,33 @@
-.numbering {
+/* .numbering {
     display: None;
-  }
+  } */
+
+
+
+.ReactPaginate {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin-top: 20px;
+    padding: 0;
+   }
+
+   .ReactPaginate li:not(.disabled) a:hover {
+    background-color: bisque;
+    cursor: pointer;
+   }
+   
+   .ReactPaginate li a {
+    font-weight: bold;
+   }
+   
+   .ReactPaginate li.active a {
+    color: #fff;
+    background: #6c7ac9;
+   }
+   
+   .ReactPaginate li.disabled a {
+    pointer-events: none;
+    color: rgb(198, 197, 202);
+    border: 1px solid rgb(198, 197, 202);
+   }

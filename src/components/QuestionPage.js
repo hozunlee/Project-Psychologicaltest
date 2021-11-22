@@ -26,8 +26,8 @@ const QuestionPage = ( { history } ) => {
         if(Object.keys(saveData).length === 26){
             return setNow(96.5);
         } else if(Object.keys(saveData).length >= 0){
-            return setNow(Object.keys(saveData).length * 3.5);
-        }
+            return setNow(Object.keys(saveData).length + 3.5);
+        } //FIXME NOW숫자 올라가는거 고민해보자
     }
     console.log(saveData)
 
@@ -91,7 +91,7 @@ const QuestionPage = ( { history } ) => {
     const changePage = ({selected}) => {
         setPageNumber(selected);
     };
-
+    console.log(pageNumber)
     
 
 
@@ -113,7 +113,7 @@ const QuestionPage = ( { history } ) => {
                 <ReactPaginate
                     previousLabel={<AnyButton>Previous</AnyButton>}
                     nextLabel={<AnyButton
-                    disabled={Object.keys(saveData).length % 5 !== 0} //FIXME 저 그래서 현재페이지 5의 배수로(0~25) 준 다음에 현재 페이지값 == 객체 길이인 경우에도 disabled 줬어요!!
+                    disabled={Object.keys(saveData).length % 5 !== 0 || pageNumber * 5 == Object.keys(saveData).length} //FIXME 저 그래서 현재페이지 5의 배수로(0~25) 준 다음에 현재 페이지값 == 객체 길이인 경우에도 disabled 줬어요!!
                     
                     
                     >Next</AnyButton>}
@@ -122,6 +122,7 @@ const QuestionPage = ( { history } ) => {
                     onPageChange={changePage}
                     theme="square-fill"
                 />
+
         
             </div>
 
@@ -148,9 +149,6 @@ const AnyButton = styled.button`
     font-size: 50px;
 `;
 
-const NumCount = styled.div`
-    display: None;
-`;
 
 const Testbox = styled.div`
 background-color: ${props => props.color || "palevioletred"};
