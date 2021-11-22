@@ -11,7 +11,9 @@ const QuestionPage = ( { history } ) => {
     const [getData, setGetData] = useState([]);
     const [now, setNow] = useState(0);
     const [saveData, setSaveData] = useState({}); 
+    const [btnDisable, setBtnDisable] = useState(true);
     //TODO QuestionPage.js에 state를 하나 더 만들고, 그 state에 답변 28개가 꽉 차면 history.push할 때 params로 결과지를 같이 넘기면 됩니다.
+
 
     const onDateAdd = (e) => {
         let keyname = e.target.name;
@@ -21,15 +23,23 @@ const QuestionPage = ( { history } ) => {
             ...saveData,
             [keyname]: value
         })
+        
+        if(Object.keys(saveData).length === 27){
+            return (
+                setNow(100),
+                setBtnDisable(false)
+            )
+        } else {
+            return ;
+        }
+        
+         //FIXME NOW숫자 올라가는거 고민해보자
+
 
         
-        if(Object.keys(saveData).length === 26){
-            return setNow(96.5);
-        } else if(Object.keys(saveData).length >= 0){
-            return setNow(Object.keys(saveData).length + 3.5);
-        } //FIXME NOW숫자 올라가는거 고민해보자
     }
-    console.log(saveData)
+    console.log(Object.keys(saveData).length)
+    console.log(btnDisable)
 
     useEffect(() => {
         console.log("loading");
@@ -98,7 +108,7 @@ const QuestionPage = ( { history } ) => {
     return (
         <div>
             
-            <h1>검사 예시</h1>
+            <h1>검사 진행</h1>
             <div>
                 <p>{now}%</p>
                 <ProgressBar now={now} label={`${now}%`} />
@@ -111,10 +121,26 @@ const QuestionPage = ( { history } ) => {
             <div>
                 {displayData} 
                 <ReactPaginate
-                    previousLabel={<AnyButton>Previous</AnyButton>}
+                    previousLabel={<AnyButton
+                        onClick={ (event) => {
+                            if(now === 0){
+                                history.goBack()
+                            } else{
+                                return ;
+                            }
+                            
+                            }}
+                    >Previous</AnyButton>}
                     nextLabel={<AnyButton
-                    disabled={Object.keys(saveData).length % 5 !== 0 || pageNumber * 5 == Object.keys(saveData).length} //FIXME 저 그래서 현재페이지 5의 배수로(0~25) 준 다음에 현재 페이지값 == 객체 길이인 경우에도 disabled 줬어요!!
-                    
+                    disabled={btnDisable && Object.keys(saveData).length % 5 !== 0 || pageNumber * 5 == Object.keys(saveData).length} //FIXME 저 그래서 현재페이지 5의 배수로(0~25) 준 다음에 현재 페이지값 == 객체 길이인 경우에도 Disabled 줬어요!!
+                    onClick={ (event) => {
+                        if(now === 100){
+                            history.push("/")
+                        } else{
+                            setNow(now + 18)
+                        }
+                        
+                        }}
                     
                     >Next</AnyButton>}
                     pageClassName="numbering" //TODO CSS값 적용하기
