@@ -1,15 +1,14 @@
 // import { Link } from '@material-ui/core';
 import React, {useState, useEffect} from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar'
-import { Link } from "react-router-dom";
 import axios from 'axios';
 import styled from "styled-components";
 
 
 
-const ExPage = ( { history } ) => {
+const ExPage = ( { history, useParams } ) => {
     const [exData, setExData] = useState([]);
-    const [now1, setNow1] = useState(0);
+    const now1 = 0;
 
 
 
@@ -77,7 +76,7 @@ const AnyButton = styled.button`
 
 const Testbox = styled.div`
 background-color: ${props => props.color || "palevioletred"};
-    width: 50%;
+    width: 100%;
     height: 50%;
     border-radius: 3px;
     border : 3px;

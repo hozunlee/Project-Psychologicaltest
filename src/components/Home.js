@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
-
-const Home = ( { history, now, setNow } ) => {
+const Home = ( { history } ) => {
     const [inputs, setInputs] = useState({
         name: "",
         gender: ""
@@ -20,7 +20,8 @@ const Home = ( { history, now, setNow } ) => {
         });
     };
         
-    
+    var params = useParams();
+    console.log('params', params);
     
 
     return (
@@ -67,10 +68,17 @@ const Home = ( { history, now, setNow } ) => {
                 disabled={!name || !gender}
                 onClick={ (event) => {
                     alert(name + gender);
-                    history.push("/ExPage")
+                    history.push({
+                        pathname: `/ExPage/${name}`,
+                        state: {name: name}
+                    })
+                    
                     
                     }}> 검사 시작 </AnyButton>
             </div>
+            <a href={`/ResultPage/${name}`}>
+            상세보기
+            </a>
         </div>
     );
 }

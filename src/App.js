@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       <Router>
         <Route path="/" exact component={Home} />
-        <Route path="/ExPage" render={(props) => <ExPage  {...props} />} />
+        <Route path="/ExPage/:name" render={(props) => <ExPage  {...props} />} />
         <Route path="/QuestionPage" render={(props) => <QuestionPage {...props} />} />
         <Route path="/ResultPage/:name" component={ResultPage} />
         <Route path="/Test" render={(props) => <Tesss  {...props} />}/>
