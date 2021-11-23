@@ -41,7 +41,7 @@ li {
 
 
 :checked {
-  margin-left: 25px;
+  font-family: 'Courier New', Courier, monospace;
   border: 1px solid blue;
 }
 

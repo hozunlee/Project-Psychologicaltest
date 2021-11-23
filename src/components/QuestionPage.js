@@ -15,7 +15,7 @@ const QuestionPage = ({history}) => {
     }
 
     const [saveData, setSaveData] = useState(inputsInitial);
-    const [btnDisable, setBtnDisable] = useState(false);
+    const [btnDisable, setBtnDisable] = useState(true); //true 값이어야함!
     // TODO QuestionPage.js에 state를 하나 더 만들고, 그 state에 답변 28개가 꽉 차면 history.push할 때
     // params로 결과지를 같이 넘기면 됩니다.
 
@@ -150,13 +150,7 @@ const QuestionPage = ({history}) => {
                         }
                     } > Previous</AnyButton>} 
                 nextLabel={<AnyButton
-                    disabled = {
-                        btnDisable && Object
-                            .keys(saveData)
-                            .length % 5 !== 0 || pageNumber * 5 == Object
-                            .keys(saveData)
-                            .length
-                    } //FIXME 저 그래서 현재페이지 5의 배수로(0~25) 준 다음에 현재 페이지값 == 객체 길이인 경우에도 Disabled 줬어요!!
+                    disabled={btnDisable && Object.keys(saveData).length % 5 !== 0 || pageNumber * 5 == Object.keys(saveData).length} //FIXME 저 그래서 현재페이지 5의 배수로(0~25) 준 다음에 현재 페이지값 == 객체 길이인 경우에도 Disabled 줬어요!!
                     onClick = {
                         (event) => {
 
