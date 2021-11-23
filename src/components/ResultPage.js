@@ -1,14 +1,16 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+const { useParams, Link } = require("react-router-dom");
 
-const ResultPage = ( {history} ) => {
+
+
+
+const ResultPage = ( {history, location} ) => {
     const {name}: {name: string} = useParams();
 
     return (
         
         <div>
-            <div>Client stuff: {name}</div>
-
+            <h1 className='resultName'>검사가 완료되었습니다 {name}님</h1>
             <button onClick={ () => {history.goBack()} }> 뒤로 버튼 </button>
             끝났습니다.
             <button onClick={ (event) => {
