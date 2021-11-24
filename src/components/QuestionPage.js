@@ -10,40 +10,9 @@ const QuestionPage = ({history, location, useParams }) => {
     const inputs = location.state.inputs;
     const [getData, setGetData] = useState([]);
     const [now, setNow] = useState(0);
-    const inputsInitial = {}
-    for (let i = 1; i < getData.length+1; i++){
-        inputsInitial[`B${i}`] = "";
-    }
-
-    const [saveData, setSaveData] = useState(inputsInitial);
     const [btnDisable, setBtnDisable] = useState(true); //true 값이어야함!
-    // TODO QuestionPage.js에 state를 하나 더 만들고, 그 state에 답변 28개가 꽉 차면 history.push할 때
-    // params로 결과지를 같이 넘기면 됩니다.
-    console.log(inputs)
-    console.log(saveData)
-    
+    //setCountPer(parseInt( (100 * Object.keys(inputs).length) / saveData.length ));
 
-    const onDateAdd = (e) => {
-        let keyname = e.target.name;
-        const {value} = e.target;
-
-        setSaveData((cur) => {
-            let newsetSaveData = {...cur};
-            newsetSaveData[keyname]= value;
-            return newsetSaveData;
-        });
-        
-
-
-        if (Object.keys(saveData).length === 27) {
-            return (setNow(100), setBtnDisable(false))
-        } else {
-            return;
-        }
-
-        //FIXME NOW숫자 올라가는거 고민해보자
-
-    }
     // console.log(Object.keys(saveData).length) console.log(btnDisable)  5개 클릭시 버튼
     // 활성화 확인
 
@@ -65,6 +34,59 @@ const QuestionPage = ({history, location, useParams }) => {
         loadQuestion();
     }, []); //2번째 array를 비워두면 한번만 실행하라는 뜻
 
+
+    const inputsInitial = {}
+    for (let i = 1; i < getData.length+1; i++){
+        inputsInitial[`B${i}`] = "";
+    }
+
+
+    
+    // 선택한 input 값 받아서 저장
+    const [saveData, setSaveData] = useState(inputsInitial);
+
+    // TODO QuestionPage.js에 state를 하나 더 만들고, 그 state에 답변 28개가 꽉 차면 history.push할 때
+    // params로 결과지를 같이 넘기면 됩니다.
+    console.log(inputs)
+    console.log(saveData)
+    
+
+    const onDateAdd = (e) => {
+        let keyname = e.target.name;
+        const {value, name} = e.target;
+
+
+        setSaveData((cur) => {
+            let newsetSaveData = {...cur};
+            newsetSaveData[name]= value;
+            return newsetSaveData;
+        });
+        
+
+        if (Object.keys(saveData).length === 27) {
+            return (setNow(100), setBtnDisable(false))
+        } else {
+            return;
+        }
+    }
+
+    const inputsForPost = []
+    var answers = []
+    
+    
+
+    useEffect(() => {
+        if (Object.keys(saveData).length === getData.length){
+            console.log("Post 유즈이펙트 작동확인");
+            for (let input of Object.entries(saveData)){
+            inputsForPost.push(input.join("="));
+            console.log(inputsForPost)
+            answers = inputsForPost.join(" ");
+            console.log(answers)
+            }
+        }
+        }, [saveData]);
+    console.log(answers)
 
     // pagination 입니다.
     const [pageNumber, setPageNumber] = useState(0)
@@ -118,7 +140,7 @@ const QuestionPage = ({history, location, useParams }) => {
     const changePage = ({selected}) => {
         setPageNumber(selected);
     };
-    console.log(pageNumber)
+    console.log("pagenumber ::" + pageNumber)
 
     return (
         <div>
@@ -154,10 +176,14 @@ const QuestionPage = ({history, location, useParams }) => {
                     disabled={btnDisable && Object.keys(saveData).length % 5 !== 0 || pageNumber * 5 == Object.keys(saveData).length} //FIXME 저 그래서 현재페이지 5의 배수로(0~25) 준 다음에 현재 페이지값 == 객체 길이인 경우에도 Disabled 줬어요!!
                     onClick = {
                         (event) => {
-
+                            event.preventDefault();
 
                             if (now === 100) {
-                                history.push("/ResultPage/이혜미")
+                                history.push({
+                                    pathname: `/ResultPage/:name`,
+                                    state: {inputs: inputs,
+                                        answers:answers}
+                                })
                             } else {
                                 setNow(now + 18)
                             }
@@ -174,9 +200,6 @@ const QuestionPage = ({history, location, useParams }) => {
                 />
 
             </div>
-            <a href={`/ResultPage/`}>
-            상세보기
-            </a>
             <br/>
         </div>
 

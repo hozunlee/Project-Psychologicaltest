@@ -20,8 +20,6 @@ const Home = ( { history } ) => {
         });
     };
         
-    var params = useParams();
-    console.log('params', params);
     
 
     return (
@@ -51,11 +49,11 @@ const Home = ( { history } ) => {
                 <br />
                 <input type='radio'
                 name='gender'
-                value='male'
+                value='100323'
                 onChange={genderHandler} />남성
                 <input type='radio'
                 name='gender'
-                value='female'
+                value='100324'
                 onChange={genderHandler} />여성
                 <br />
             </div>

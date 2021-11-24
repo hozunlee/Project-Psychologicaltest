@@ -8,7 +8,8 @@ import Home from './components/Home';
 import QuestionPage from './components/QuestionPage';
 import ResultPage from './components/ResultPage';
 import ExPage from './components/ExPage';
-import Tesss from './components/Tesss';
+import ReportPage from './components/ReportPage';
+// import Tesss from './sub/Tesss';
 
 
 import {BrowserRouter as Router, Route} from 'react-router-dom';
@@ -25,7 +26,7 @@ function App() {
         <Route path="/ExPage/:name" render={(props) => <ExPage  {...props} />} />
         <Route path="/QuestionPage" render={(props) => <QuestionPage {...props} />} />
         <Route path="/ResultPage/:name" component={ResultPage} />
-        <Route path="/Test" render={(props) => <Tesss  {...props} />}/>
+        <Route path="/ReportPage" component={ReportPage} />
         
       </Router>
       
