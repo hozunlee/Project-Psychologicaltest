@@ -6,10 +6,11 @@ import styled from "styled-components";
 
 
 
-const ExPage = ( { history, useParams } ) => {
+const ExPage = ( { history, location, useParams } ) => {
+    const inputs = location.state.inputs;
     const [exData, setExData] = useState([]);
     const now1 = 0;
-
+    console.log(inputs)
 
 
     useEffect(() => {
@@ -31,7 +32,9 @@ const ExPage = ( { history, useParams } ) => {
 
     return (
         <div>
-            <button onClick={ () => {history.goBack()} }> 뒤로 버튼 </button>
+            
+            <h1 className='resultName'> {inputs.name}님 검사를 시작합니다.<b>{inputs.gender}</b></h1>
+            
             <h1>검사 예시</h1>
             <div>
                 <p>{now1}%</p>
@@ -52,6 +55,7 @@ const ExPage = ( { history, useParams } ) => {
                 <p>{exData.answer04}</p>
             </Testbox>
             <br/>
+            <AnyButton onClick={ () => {history.goBack()} }> 뒤로 버튼 </AnyButton>
             <AnyButton 
             onClick={ (event) => {
                 alert('완료');
@@ -59,6 +63,7 @@ const ExPage = ( { history, useParams } ) => {
                 disabled={!exData}
                 
                 > 시작하기 </AnyButton>
+                
         </div>
         
     );

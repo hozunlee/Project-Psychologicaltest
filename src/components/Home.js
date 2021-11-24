@@ -70,15 +70,13 @@ const Home = ( { history } ) => {
                     alert(name + gender);
                     history.push({
                         pathname: `/ExPage/${name}`,
-                        state: {name: name}
+                        state: {inputs: inputs}
+                        
                     })
                     
                     
                     }}> 검사 시작 </AnyButton>
             </div>
-            <a href={`/ResultPage/${name}`}>
-            상세보기
-            </a>
         </div>
     );
 }
