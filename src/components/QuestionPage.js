@@ -6,7 +6,8 @@ import axios from 'axios';
 import _ from "lodash"
 
 
-const QuestionPage = ({history}) => {
+const QuestionPage = ({history, location, useParams }) => {
+    const inputs = location.state.inputs;
     const [getData, setGetData] = useState([]);
     const [now, setNow] = useState(0);
     const inputsInitial = {}
@@ -18,8 +19,8 @@ const QuestionPage = ({history}) => {
     const [btnDisable, setBtnDisable] = useState(true); //true 값이어야함!
     // TODO QuestionPage.js에 state를 하나 더 만들고, 그 state에 답변 28개가 꽉 차면 history.push할 때
     // params로 결과지를 같이 넘기면 됩니다.
-
-    
+    console.log(inputs)
+    console.log(saveData)
     
 
     const onDateAdd = (e) => {
@@ -31,7 +32,7 @@ const QuestionPage = ({history}) => {
             newsetSaveData[keyname]= value;
             return newsetSaveData;
         });
-        console.log(saveData)
+        
 
 
         if (Object.keys(saveData).length === 27) {
@@ -121,7 +122,7 @@ const QuestionPage = ({history}) => {
 
     return (
         <div>
-
+            <h1 className='resultName'> {inputs.name}님 검사를 시작합니다.<b>{inputs.gender}</b></h1>
             <h1>검사 진행</h1>
             <div>
                 <p>{now}%</p>

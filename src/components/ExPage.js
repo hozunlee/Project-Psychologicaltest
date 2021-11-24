@@ -4,6 +4,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import axios from 'axios';
 import styled from "styled-components";
 
+//TODO Home 에서 넘겨온 input을 questionPage로 넘겨보기
 
 
 const ExPage = ( { history, location, useParams } ) => {
@@ -59,13 +60,17 @@ const ExPage = ( { history, location, useParams } ) => {
             <AnyButton 
             onClick={ (event) => {
                 alert('완료');
-                history.push("/QuestionPage")}}
+                history.push({
+                    pathname: `/QuestionPage`,
+                    state: {inputs: inputs}
+                    
+                })
+                }}
                 disabled={!exData}
                 
                 > 시작하기 </AnyButton>
                 
         </div>
-        
     );
 }
 
