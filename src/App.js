@@ -9,6 +9,7 @@ import QuestionPage from './components/QuestionPage';
 import ResultPage from './components/ResultPage';
 import ExPage from './components/ExPage';
 import ReportPage from './components/ReportPage';
+// import chartReport from './components/chart';
 // import Tesss from './sub/Tesss';
 
 
@@ -29,7 +30,7 @@ function App() {
         <Route path="/ReportPage" component={ReportPage} />
         
       </Router>
-      
+
     </div>//
   );
 }

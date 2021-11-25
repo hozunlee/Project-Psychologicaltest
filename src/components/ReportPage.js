@@ -23,24 +23,42 @@ const ReportPage = ({history, location, useParams }) => {
     users.gender = gender
     users.answers = answers
 
+    
+    const [realData, setRealData] = useState({})
 
     useEffect(() => {
         console.log("loading");
-        async function loadReport() {
+        async function loads() {
             let seq = "";
-            try {
-                const response = await axios.post(
-                    `http://www.career.go.kr/inspct/openapi/test/report?apikey=ca68cf13d92ce0d85b612e6e18c57e33&qestrnSeq=6`, users
-                );
-                seq = response.data.RESULT['url'].split("seq=")[1];
-                console.log('POST 불러오기 성공');
-            } catch (e) {
-                console.log('POST 요청에서 에러 발생');
-            }
+            async function loadResult(){
+                try {
+                    const response = await axios.post(
+                        `http://www.career.go.kr/inspct/openapi/test/report?apikey=ca68cf13d92ce0d85b612e6e18c57e33&qestrnSeq=6`, users
+                    );
+                    seq = response.data.RESULT['url'].split("seq=")[1];
+                    console.log('POST 불러오기 성공');
+                    console.log(seq)
+                } catch (e) {
+                    console.log('POST 요청에서 에러 발생');
+                }
 
         }
-        loadReport();
-    }, []); //2번째 array를 비워두면 한번만 실행하라는 뜻
+            async function loadJsonData(){
+                try {
+                    const response2 = await axios.get(`https://www.career.go.kr/inspct/api/psycho/report?seq=${seq}`);
+                    setRealData(response2['data'])
+                    console.log('리얼데이터 불러오기 성공');
+                    
+                } catch (error) {
+                    console.log("JSON Data GET요청에서 에러 발생")
+                }
+        }
+        await loadResult();
+        await loadJsonData();
+        console.log(realData)
+        }
+        loads();
+    }, [ ]) //2번째 array를 비워두면 한번만 실행하라는 뜻
 
     //post 의 URL 값 
     //url: "https://www.career.go.kr/inspct/web/psycho/value/report?seq=NTU1NTEyNjc"
@@ -49,9 +67,33 @@ const ReportPage = ({history, location, useParams }) => {
 
     return (
         <div>
-            {users.name}
-            {users.gender}
-            {users.answers}
+            <div>
+                <h1>직업가치관검사 결과표</h1>
+                <p>
+                    직업가치관이란 직업을 선택할 때 영향을 끼치는 자신만의 믿음과 신념입니다.
+                    따라서 여러분의 직업생활과 관련하여 포기하지 않는 무게중심의 역할을 한다고
+                    볼 수 있습니다. 직업가치관검사는 여러분이 직업을 선택할 때 상대적으로 어떠한
+                    가치를 중요하게 생각하는지를 알려줍니다. 또한 본인이 가장 중요하게 생각하는
+                    가치를 충족시켜줄 수 있는 직업에 대해 생각해 볼 기회를 제공합니다.
+                </p>
+                {realData && Object.keys(realData).length > 0 ? (
+                    <>
+                    <table border="1">
+                        <th>이름</th>
+                        <th>성별</th>
+                        <th>검사일</th>
+                        <tr>
+                        <td>{name}</td>
+                        <td>{gender === "100323" ? "남" : "여"}</td>
+                        <td>{realData.result["endDtm"].slice(0, 10).split("-").join(".")}</td>
+                        </tr>
+                    </table>
+                    </>
+                ) : undefined}
+                <h2>직업가치관 결과</h2>
+                <h2>가치관과 관련이 높은 직업</h2>
+
+                </div>;
 
 
             <button
