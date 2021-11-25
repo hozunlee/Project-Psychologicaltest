@@ -50,3 +50,9 @@ app.js엔 쿼리 호출에 관한 코드나 데이터 관리 state는 안넣는�
 
 1. history push 데이터 전달
 - home 에서 exPage로 데이터 전달함!!!!!!!!!
+
+
+> 211125 day-9
+
+1. post로 1회 보내고 그 seq 값으로 get요청하여 결과를 불러왔다.
+2. yarn add @nivo/core @nivo/bar 를 깔아 차트를 만들고자 한다.
