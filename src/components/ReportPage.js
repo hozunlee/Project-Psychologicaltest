@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import Chart from './chart';
 
 const ReportPage = ({history, location, useParams }) => {
     const inputs = location.state.inputs;
@@ -24,6 +25,7 @@ const ReportPage = ({history, location, useParams }) => {
     users.answers = answers
 
     
+    //api를 통해 결과 값 가져오기 
     const [realData, setRealData] = useState({})
 
     useEffect(() => {
@@ -50,7 +52,7 @@ const ReportPage = ({history, location, useParams }) => {
                     console.log('리얼데이터 불러오기 성공');
                     
                 } catch (error) {
-                    console.log("JSON Data GET요청에서 에러 발생")
+                    console.log("리얼데이터 GET요청에서 에러 발생")
                 }
         }
         await loadResult();
@@ -62,6 +64,26 @@ const ReportPage = ({history, location, useParams }) => {
 
     //post 의 URL 값 
     //url: "https://www.career.go.kr/inspct/web/psycho/value/report?seq=NTU1NTEyNjc"
+
+    //결과 값 가공해서 차트만들기
+    const reportScores = useMemo(() => {
+        if (realData?.result?.wonScore) {
+            const scores = (realData.result.wonScore + "")
+            .split(" ")
+            .filter((value) => {
+                return !!value;
+            })
+            .map((value) => {
+                const [seq, score] = value
+                    .split("=")
+                    .map((text) => parseInt(text, 10));
+                return { seq, score };
+            });
+        return scores;
+        
+        }
+        return [];
+    }, [realData]);
 
 
 
@@ -91,6 +113,7 @@ const ReportPage = ({history, location, useParams }) => {
                     </>
                 ) : undefined}
                 <h2>직업가치관 결과</h2>
+                <Chart data={reportScores} name={name} ></Chart>
                 <h2>가치관과 관련이 높은 직업</h2>
 
                 </div>;
