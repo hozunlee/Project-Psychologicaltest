@@ -9,8 +9,8 @@ import QuestionPage from './components/QuestionPage';
 import ResultPage from './components/ResultPage';
 import ExPage from './components/ExPage';
 import ReportPage from './components/ReportPage';
-// import chartReport from './components/chart';
-// import Tesss from './sub/Tesss';
+// import chartPage from './components/chart';
+
 
 
 import {BrowserRouter as Router, Route} from 'react-router-dom';
