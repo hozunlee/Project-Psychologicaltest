@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState, useMemo } from 'react';
-import Chart from './chart';
+import ChartCC from './chart';
 
 const ReportPage = ({history, location, useParams }) => {
     const inputs = location.state.inputs;
@@ -113,7 +113,7 @@ const ReportPage = ({history, location, useParams }) => {
                     </>
                 ) : undefined}
                 <h2>직업가치관 결과</h2>
-                <Chart data={reportScores} name={name} ></Chart>
+                <ChartCC data={reportScores} name={name} ></ChartCC>
                 <h2>가치관과 관련이 높은 직업</h2>
 
                 </div>;

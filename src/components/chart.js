@@ -9,7 +9,9 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 
 
+
 const ChartCC = ({ data,name }) => {
+    console.log(data)
     const [datas, setDatas] = useState({
         argument: "",
         value: ""
@@ -46,23 +48,50 @@ const ChartCC = ({ data,name }) => {
     
     }, [data]);
 
+    const maxName = useMemo(() => {
+        if (Array.isArray(data)) {
+        return Math.max(...data.map(({ score }) => score));
+    }
+    return 1;
+    
+    }, [data]);
+
+    datass.sort(function (a, b) {
+        if (a.value < b.value) {
+            return 1;
+        }
+        if (a.value > b.value) {
+            return -1;
+        }
+        // a must be equal to b
+        return 0;
+        });
+    
 
     return (
-
-        <Paper>
-            <Chart
-            data={datass}
-            >
-            <ArgumentAxis />
-            <ValueAxis />
-        
-            <BarSeries valueField="value" argumentField="argument" />
-            </Chart>
-            <h1>{name}님은 {maxScore}를 가장 중요하게 생각하고 있네요😊</h1>
-        </Paper>
+        <div>
+            <br/>
+            <h3>{name}님은 {datass[0].argument} & {datass[1].argument}를 가장 중요하게 생각하고 있네요😊  </h3>
+            <br/>
+            <Paper>
+                <Chart
+                data={datass}
+                >
+                <ArgumentAxis />
+                <ValueAxis />
+            
+                <BarSeries valueField="value" argumentField="argument" />
+                </Chart>
+            
+            </Paper>
+            
+        </div>
     );
     }
 
 
 
 export default ChartCC;
+
+
+//<h1>{name}님은 {datass[0].argument} & {datass[1].argument}를 가장 중요하게 생각하고 있네요😊</h1>
