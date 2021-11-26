@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import ChartCC from './chart';
 
 const ReportPage = ({history, location, useParams }) => {
@@ -27,6 +27,8 @@ const ReportPage = ({history, location, useParams }) => {
     
     //api를 통해 결과 값 가져오기 
     const [realData, setRealData] = useState({})
+    const [majors, setMajors] = useState(null);
+     const [jobs, setJobs] = useState(null);
 
     useEffect(() => {
         console.log("loading");
@@ -57,7 +59,6 @@ const ReportPage = ({history, location, useParams }) => {
         }
         await loadResult();
         await loadJsonData();
-        console.log(realData)
         }
         loads();
     }, [ ]) //2번째 array를 비워두면 한번만 실행하라는 뜻
@@ -84,7 +85,84 @@ const ReportPage = ({history, location, useParams }) => {
         }
         return [];
     }, [realData]);
+    console.log(reportScores)
 
+    //reportScores 정렬하기
+    const sortedReportScores = useMemo(() => {
+        if (Array.isArray(reportScores)) {
+            return [...reportScores].sort((a, b) => {
+                return a.score < b.score ? 1 : -1;
+            });
+            }
+            return [];
+            
+        }, [reportScores]);
+    console.log(sortedReportScores)
+    
+
+    const fetchMajors = useCallback(async () => {
+        if (Array.isArray(sortedReportScores) && sortedReportScores.length > 2) {
+            const [{ seq: no1 }, { seq: no2 }] = sortedReportScores;
+            if (no1 && no2) {
+                let majorUrl = `https://inspct.career.go.kr/inspct/api/psycho/value/majors?no1=${
+                    no1
+                }&no2=${no2}`;
+                const response = await axios.get(majorUrl);
+                ;
+                if (response) {
+                    setMajors([response.data]);
+                    console.log("major", response.data);
+                }
+            }
+            }
+        }, [sortedReportScores]);
+    
+        const fetchJobs = useCallback(async () => {
+            if (Array.isArray(sortedReportScores) && sortedReportScores.length > 2) {
+                const [{ seq: no1 }, { seq: no2 }] = sortedReportScores;
+                if (no1 && no2) {
+                    let jobUrl = `https://inspct.career.go.kr/inspct/api/psycho/value/jobs?no1=${
+                        no1
+                    }&no2=${no2}`;
+                    const response = await axios.get(jobUrl);
+                    if (response) {
+                        setJobs([response.data]);
+                        console.log("education", response.data);
+                    }
+                }
+                }
+            }, [sortedReportScores]);
+        
+
+
+
+    useEffect(() => {
+        fetchMajors();
+    }, [fetchMajors]);
+
+    useEffect(() => {
+        fetchJobs();
+    }, [fetchJobs]);
+    
+    
+    const educationLevelNames = [
+        "중졸이하",
+        "고졸",
+        "전문대졸",
+        "대졸",
+        "대학원졸",
+    ];
+
+    const majorNames = [
+        "계열무관",
+        "인문",
+        "사회",
+        "교육",
+        "공학",
+        "자연",
+        "의학",
+        "예체능",
+    ];
 
 
     return (
@@ -112,12 +190,110 @@ const ReportPage = ({history, location, useParams }) => {
                     </table>
                     </>
                 ) : undefined}
-                <h2>직업가치관 결과</h2>
                 <ChartCC data={reportScores} name={name} ></ChartCC>
-                <h2>가치관과 관련이 높은 직업</h2>
+                </div>
+                <br/>
+                <br/>
+                <div>
+                <h3>가치관과 관련이 높은 직업</h3>
+                    <div className="bg-secondary p-2 text-center text-white">
+                        <h4>종사자 평균 학력별</h4>
+                        </div>
+                        <table className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col" style={{ whiteSpace: "nowrap", minWidth: 120 }}>
+                                분야
+                            </th>
+                            <th scope="col">직업</th>
+                            </tr>
+                            {educationLevelNames.map(
+                            (educationLevelName, educationLevelIndex) => {
+                                const jobsByEducationLevel = (jobs || []).filter((job) => {
+                                return job?.[2] === educationLevelIndex + 1;
+                                });
+                                return (
+                                <tr
+                                    style={
+                                    jobsByEducationLevel.length <= 0
+                                        ? { display: "none" }
+                                        : {}
+                                    }
+                                >
+                                    <td
+                                    style={{
+                                        whiteSpace: "nowrap",
+                                    }}
+                                    >
+                                    {educationLevelName}
+                                    </td>
+                                    <td>
+                                    {jobsByEducationLevel.map((job) => {
+                                        const [jobSeq, jobName] = job;
+                                        return (
+                                        <a
+                                            className="mr-2"
+                                            href={`https://www.career.go.kr/cnet/front/base/job/jobView.do?SEQ=${jobSeq}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            {jobName}
+                                        </a>
+                                        );
+                                    })}
+                                    </td>
+                                </tr>
+                                );
+                            }
+                            )}
+                        </thead>
+                        </table>
+                        <div className="bg-secondary p-2 text-center text-white">
+                    <h4>종사자 평균 전공별</h4>
+                    </div>
+                    <table className="table">
+                    <thead>
+                        <tr>
+                        <th scope="col" style={{ whiteSpace: "nowrap", minWidth: 120 }}>
+                            분야
+                        </th>
+                        <th scope="col">직업</th>
+                        </tr>
+                        {majorNames.map((majorName, majorNameIndex) => {
+                        const jobsByMajor = (majors || []).filter((job) => {
+                            return job?.[2] === majorNameIndex + 1;
+                        });
+                        return (
+                            <tr style={jobsByMajor.length <= 0 ? { display: "none" } : {}}>
+                            <td
+                                style={{
+                                whiteSpace: "nowrap",
+                                }}
+                            >
+                                {majorName}
+                            </td>
+                            <td>
+                                {jobsByMajor.map((job) => {
+                                const [jobSeq, jobName] = job;
+                                return (
+                                    <a
+                                    className="mr-2"
+                                    href={`https://www.career.go.kr/cnet/front/base/job/jobView.do?SEQ=${jobSeq}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    >
+                                    {jobName}
+                                    </a>
+                                );
+                                })}
+                            </td>
+                            </tr>
+                        );
+                        })}
+                    </thead>
+                    </table>
 
-                </div>;
-
+                </div>
 
             <button
                 onClick={(event) => {

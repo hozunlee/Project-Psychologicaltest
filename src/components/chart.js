@@ -71,7 +71,7 @@ const ChartCC = ({ data,name }) => {
     return (
         <div>
             <br/>
-            <h3>{name}님은 {datass[0].argument} & {datass[1].argument}를 가장 중요하게 생각하고 있네요😊  </h3>
+                {/* <h3>{name}님은 {datass[0].argument} & {datass[1].argument}를 가장 중요하게 생각하고 있네요😊  </h3> */}
             <br/>
             <Paper>
                 <Chart
