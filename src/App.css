@@ -1,11 +1,20 @@
+
+
 .App {
   text-align: center;
+  
 }
 
 
 html,
 body {
-  height: 100%;
+
+}
+h1 {
+  font-family: 'Do Hyeon', sans-serif;
+}
+div, p {
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 body {

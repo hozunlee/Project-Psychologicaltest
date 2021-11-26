@@ -110,7 +110,7 @@ const QuestionPage = ({history, location, useParams }) => {
                                     type="radio"
                                     name={item.qitemNo}
                                     value={item.answerScore01}
-                                    checked={saveData[String(idx + 1)] === item.answerScore01 ? true : false }
+                                    checked={saveData[String(item.qitemNo)] === item.answerScore01 ? true : false }
                                     onChange={onDateAdd}
                                     ></input>
                                 {item.answer01}</label>
@@ -120,7 +120,7 @@ const QuestionPage = ({history, location, useParams }) => {
                                     type="radio"
                                     name={item.qitemNo}
                                     value={item.answerScore02}
-                                    checked={saveData[String(idx + 1)] === item.answerScore02 ? true : false }
+                                    checked={saveData[String(item.qitemNo)] === item.answerScore02 ? true : false }
                                     onChange={onDateAdd}
                                     ></input>
                                 {item.answer02}</label>
@@ -211,14 +211,15 @@ const AnyButton = styled.button `
     border: 0;
     border-radius: 30px;
     width: 30vw;
-    background: skyblue;
+    background: #264653;
     color: #fff;
-    font-size: 50px;
+    font-size: 30px;
     display: inline-block;
+    margin-left : 50%;
 `;
 
 const Testbox = styled.div `
-background-color: ${props => props.color || "palevioletred"};
+background-color: ${props => props.color || "#f4a261"};
     width: 80%;
     height: 50%;
     border-radius: 3px;

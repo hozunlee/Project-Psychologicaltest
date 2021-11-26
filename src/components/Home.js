@@ -84,10 +84,10 @@ const AnyButton = styled.button`
     text-align: center;
     border: 0;
     border-radius: 30px;
-    width: 30vw;
+    width: 20vw;
     background: skyblue;
     color: #fff;
-    font-size: 50px;
+    font-size: 3vw;
 `;
 
 

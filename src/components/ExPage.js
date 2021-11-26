@@ -81,7 +81,8 @@ const AnyButton = styled.button`
     width: 30vw;
     background: skyblue;
     color: #fff;
-    font-size: 50px;
+    font-size: 5vw;
+    display: inline-block;
 `;
 
 const Testbox = styled.div`
