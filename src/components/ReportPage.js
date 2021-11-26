@@ -1,8 +1,20 @@
 import axios from 'axios';
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, useCallback} from 'react';
+import { useLocation } from "react-router-dom";
 import ChartCC from './chart';
 
 const ReportPage = ({history, location, useParams }) => {
+
+    function ScrollToTop() {
+        const { pathname } = useLocation();
+        
+            useEffect(() => {
+            window.scrollTo(0, 0);
+            }, [pathname]);
+        
+            return null;
+        }
+
     const inputs = location.state.inputs;
     const answers = location.state.answers;
     
@@ -110,7 +122,7 @@ const ReportPage = ({history, location, useParams }) => {
                 const response = await axios.get(majorUrl);
                 ;
                 if (response) {
-                    setMajors([response.data]);
+                    setMajors(response.data);
                     console.log("major", response.data);
                 }
             }
@@ -126,8 +138,9 @@ const ReportPage = ({history, location, useParams }) => {
                     }&no2=${no2}`;
                     const response = await axios.get(jobUrl);
                     if (response) {
-                        setJobs([response.data]);
-                        console.log("education", response.data);
+                        setJobs(response.data);
+                        console.log("jobs", response.data);
+
                     }
                 }
                 }
@@ -168,6 +181,7 @@ const ReportPage = ({history, location, useParams }) => {
     return (
         <div>
             <div>
+                <ScrollToTop />
                 <h1>직업가치관검사 결과표</h1>
                 <p>
                     직업가치관이란 직업을 선택할 때 영향을 끼치는 자신만의 믿음과 신념입니다.
@@ -197,9 +211,9 @@ const ReportPage = ({history, location, useParams }) => {
                 <div>
                 <h3>가치관과 관련이 높은 직업</h3>
                     <div className="bg-secondary p-2 text-center text-white">
-                        <h4>종사자 평균 학력별</h4>
-                        </div>
-                        <table className="table">
+                    <h4>종사자 평균 학력별</h4>
+                    </div>
+                    <table className="table">
                         <thead>
                             <tr>
                             <th scope="col" style={{ whiteSpace: "nowrap", minWidth: 120 }}>
@@ -207,28 +221,71 @@ const ReportPage = ({history, location, useParams }) => {
                             </th>
                             <th scope="col">직업</th>
                             </tr>
+
                             {educationLevelNames.map(
-                            (educationLevelName, educationLevelIndex) => {
-                                const jobsByEducationLevel = (jobs || []).filter((job) => {
-                                return job?.[2] === educationLevelIndex + 1;
+                                (educationLevelName, educationLevelIndex) => {
+                                    const jobsByEducationLevel = (jobs || []).filter((job) => {
+                                        return job?.[2] === educationLevelIndex + 1;
+                                    });
+
+                            
+                            return (
+                                
+                                <tr style={jobsByEducationLevel.length <= 0 ? { display: "none" } : {}}>
+                                <td
+                                    style={{
+                                    whiteSpace: "nowrap",
+                                    }}
+                                >
+                                    {educationLevelName}
+                                </td>
+                                <td>
+                                    {jobsByEducationLevel.map((job) => {
+                                    const [jobSeq, jobName] = job;
+                                    return (
+                                        
+                                        <a
+                                        className="mr-2"
+                                        href={`https://www.career.go.kr/cnet/front/base/job/jobView.do?SEQ=${jobSeq}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        >
+                                        {jobName}
+                                        </a>
+                                    );
+                                    })}
+                                </td>
+                                </tr>
+                            );
+                            })}
+                        </thead>
+                        </table>;
+                        <div className="bg-secondary p-2 text-center text-white">
+                            <h4>종사자 평균 전공별</h4>
+                        </div>
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" style={{ whiteSpace: "nowrap", minWidth: 120 }}>
+                                분야
+                                </th>
+                                <th scope="col">직업</th>
+                            </tr>
+                            {majorNames.map((majorName, majorNameIndex) => {
+                                const jobsByMajor = (majors || []).filter((job) => {
+                                return job?.[2] === majorNameIndex + 1;
                                 });
                                 return (
-                                <tr
-                                    style={
-                                    jobsByEducationLevel.length <= 0
-                                        ? { display: "none" }
-                                        : {}
-                                    }
-                                >
+                                <tr style={jobsByMajor.length <= 0 ? { display: "none" } : {}}>
                                     <td
                                     style={{
                                         whiteSpace: "nowrap",
                                     }}
                                     >
-                                    {educationLevelName}
+                                    {majorName}
                                     </td>
                                     <td>
-                                    {jobsByEducationLevel.map((job) => {
+                                    {jobsByMajor.map((job) => {
                                         const [jobSeq, jobName] = job;
                                         return (
                                         <a
@@ -244,54 +301,10 @@ const ReportPage = ({history, location, useParams }) => {
                                     </td>
                                 </tr>
                                 );
-                            }
-                            )}
-                        </thead>
+                            })}
+                            </thead>
                         </table>
-                        <div className="bg-secondary p-2 text-center text-white">
-                    <h4>종사자 평균 전공별</h4>
-                    </div>
-                    <table className="table">
-                    <thead>
-                        <tr>
-                        <th scope="col" style={{ whiteSpace: "nowrap", minWidth: 120 }}>
-                            분야
-                        </th>
-                        <th scope="col">직업</th>
-                        </tr>
-                        {majorNames.map((majorName, majorNameIndex) => {
-                        const jobsByMajor = (majors || []).filter((job) => {
-                            return job?.[2] === majorNameIndex + 1;
-                        });
-                        return (
-                            <tr style={jobsByMajor.length <= 0 ? { display: "none" } : {}}>
-                            <td
-                                style={{
-                                whiteSpace: "nowrap",
-                                }}
-                            >
-                                {majorName}
-                            </td>
-                            <td>
-                                {jobsByMajor.map((job) => {
-                                const [jobSeq, jobName] = job;
-                                return (
-                                    <a
-                                    className="mr-2"
-                                    href={`https://www.career.go.kr/cnet/front/base/job/jobView.do?SEQ=${jobSeq}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    >
-                                    {jobName}
-                                    </a>
-                                );
-                                })}
-                            </td>
-                            </tr>
-                        );
-                        })}
-                    </thead>
-                    </table>
+
 
                 </div>
 
