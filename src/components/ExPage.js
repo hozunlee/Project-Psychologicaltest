@@ -34,8 +34,8 @@ const ExPage = ( { history, location, useParams } ) => {
     return (
         <div>
             
-            <h1 className='resultName'> {inputs.name}님 검사를 시작합니다.<b>{inputs.gender}</b></h1>
-            
+            <h1 className='resultName'> {inputs.name}님 검사를 시작합니다.</h1>
+            <br/>
             <h1>검사 예시</h1>
             <div>
                 <p>{now1}%</p>
@@ -56,8 +56,9 @@ const ExPage = ( { history, location, useParams } ) => {
                 <p>{exData.answer04}</p>
             </Testbox>
             <br/>
+
             <AnyButton onClick={ () => {history.goBack()} }> 뒤로 버튼 </AnyButton>
-            <AnyButton 
+            <AnyButton2 
             onClick={ (event) => {
                 alert('완료');
                 history.push({
@@ -68,25 +69,42 @@ const ExPage = ( { history, location, useParams } ) => {
                 }}
                 disabled={!exData}
                 
-                > 시작하기 </AnyButton>
+                > 시작하기 </AnyButton2>
                 
         </div>
     );
 }
 
-const AnyButton = styled.button`
+const AnyButton = styled.button `
     text-align: center;
     border: 0;
     border-radius: 30px;
     width: 30vw;
-    background: skyblue;
+    background: #264653;
     color: #fff;
-    font-size: 5vw;
+    font-size: 20px;
     display: inline-block;
+    margin : auto;
+    justify-content: center;
+    float:left;
 `;
 
+const AnyButton2 = styled.button `
+    text-align: center;
+    border: 0;
+    border-radius: 30px;
+    width: 30vw;
+    background: #264653;
+    color: #fff;
+    font-size: 20px;
+    float:right; 
+    display:inline-block;
+    margin : auto;
+    justify-content: center;
+    `;
+
 const Testbox = styled.div`
-background-color: ${props => props.color || "palevioletred"};
+    background-color: #f4a261;
     width: 100%;
     height: 50%;
     border-radius: 3px;

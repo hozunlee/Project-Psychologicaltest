@@ -215,11 +215,14 @@ const AnyButton = styled.button `
     color: #fff;
     font-size: 30px;
     display: inline-block;
-    margin-left : 50%;
+    margin : auto;
+    justify-content: center;
+    
+
 `;
 
 const Testbox = styled.div `
-background-color: ${props => props.color || "#f4a261"};
+    background-color: #f4a261;
     width: 80%;
     height: 50%;
     border-radius: 3px;

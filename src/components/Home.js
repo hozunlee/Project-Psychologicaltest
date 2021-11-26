@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import work from './img/work.jpg'
 
 const Home = ( { history } ) => {
     const [inputs, setInputs] = useState({
@@ -24,7 +25,10 @@ const Home = ( { history } ) => {
 
     return (
         <div>
-            <header><h1>직업가치관검사</h1></header>
+            <Title>직업가치관검사</Title>
+            <div className="HomeImageContainer">
+                <Mainimg src={work} alt="workImg"/>
+            </div>
             <div>
                 이름
                 <br />
@@ -44,6 +48,7 @@ const Home = ( { history } ) => {
                 />
                 <br />
             </div>
+            <br/>
             <div>
                 성별
                 <br />
@@ -57,6 +62,7 @@ const Home = ( { history } ) => {
                 onChange={genderHandler} />여성
                 <br />
             </div>
+            <br/>
             <div className="mb-2">
                 <AnyButton
                 variant="primary"
@@ -65,7 +71,7 @@ const Home = ( { history } ) => {
                 value="buttonChange"
                 disabled={!name || !gender}
                 onClick={ (event) => {
-                    alert(name + gender);
+                    
                     history.push({
                         pathname: `/ExPage/${name}`,
                         state: {inputs: inputs}
@@ -73,22 +79,38 @@ const Home = ( { history } ) => {
                     })
                     
                     
-                    }}> 검사 시작 </AnyButton>
+                    }}> 😎시작😎 </AnyButton>
             </div>
         </div>
     );
 }
 
+const Title = styled.h1`
+    font-size: 4rem;
+    font-weight: 500;
+    color: #264653;
+`;
 
-const AnyButton = styled.button`
+const Mainimg = styled.img`
+    margin-left: 20px;
+    margin-right: 20px;
+    width: auto;
+    height: 200px;
+    overflow: hidden;
+    
+    
+`
+
+const AnyButton = styled.button `
     text-align: center;
     border: 0;
     border-radius: 30px;
-    width: 20vw;
-    background: skyblue;
+    width: 30vw;
+    background: #e76f51;
     color: #fff;
-    font-size: 3vw;
+    font-size: 30px;
+    margin : auto;
+    justify-content: center;
 `;
-
 
 export default Home;
