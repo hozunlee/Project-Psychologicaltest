@@ -20,7 +20,7 @@ const ChartCC = ({ data,name }) => {
     const interpretationNames = [
         "능력발휘",
         "자율성",
-        "보수",
+        "Money",
         "안정성",
         "사회적 인정",
         "사회봉사",
@@ -67,11 +67,14 @@ const ChartCC = ({ data,name }) => {
         return 0;
         });
     
-
     return (
         <div>
             <br/>
-                {/* <h3>{name}님은 {datass[0].argument} & {datass[1].argument}를 가장 중요하게 생각하고 있네요😊  </h3> */}
+            <div>
+                {
+                (Array.isArray(datass) > 0 && datass.length > 2)
+                ?<h4><b>{name}님!</b><br/> <b>{datass[0].argument} & {datass[1].argument}</b>의 가치를 <br/>가장 중요하게 생각하고 있네요😊</h4> :" "  }
+            </div>
             <br/>
             <Paper>
                 <Chart
@@ -94,4 +97,3 @@ const ChartCC = ({ data,name }) => {
 export default ChartCC;
 
 
-//<h1>{name}님은 {datass[0].argument} & {datass[1].argument}를 가장 중요하게 생각하고 있네요😊</h1>

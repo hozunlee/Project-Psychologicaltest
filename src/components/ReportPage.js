@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState, useMemo, useCallback} from 'react';
 import { useLocation } from "react-router-dom";
 import ChartCC from './chart';
+import styled from 'styled-components';
+
 
 const ReportPage = ({history, location, useParams }) => {
 
@@ -182,26 +184,34 @@ const ReportPage = ({history, location, useParams }) => {
         <div>
             <div>
                 <ScrollToTop />
-                <h1>직업가치관검사 결과표</h1>
-                <p>
-                    직업가치관이란 직업을 선택할 때 영향을 끼치는 자신만의 믿음과 신념입니다.
-                    따라서 여러분의 직업생활과 관련하여 포기하지 않는 무게중심의 역할을 한다고
-                    볼 수 있습니다. 직업가치관검사는 여러분이 직업을 선택할 때 상대적으로 어떠한
-                    가치를 중요하게 생각하는지를 알려줍니다. 또한 본인이 가장 중요하게 생각하는
-                    가치를 충족시켜줄 수 있는 직업에 대해 생각해 볼 기회를 제공합니다.
-                </p>
+                <h1 className='resultName'>직업가치관검사 결과표</h1>
+                <div>
+                    <Resultbox>
+                        직업가치관이란 직업을 선택할 때 영향을 끼치는 자신만의 믿음과 신념입니다.
+                        따라서 <b>{name}</b>님의 직업생활과 관련하여 포기하지 않는 무게중심의 역할을 한다고
+                        볼 수 있습니다. <br/> <b>{name}</b>님이 직업을 선택할 때 상대적으로 어떠한
+                        가치를 중요하게 생각하는지를 알려줍니다. <br/>또한 <b>{name}</b>님이 가장 중요하게 생각하는
+                        가치를 충족시켜줄 수 있는 직업에 대해 생각해 볼 기회를 제공합니다.
+                    </Resultbox>
+                    <br/>
+                </div>
                 {realData && Object.keys(realData).length > 0 ? (
                     <>
-                    <table border="1">
-                        <th>이름</th>
-                        <th>성별</th>
-                        <th>검사일</th>
-                        <tr>
-                        <td>{name}</td>
-                        <td>{gender === "100323" ? "남" : "여"}</td>
-                        <td>{realData.result["endDtm"].slice(0, 10).split("-").join(".")}</td>
-                        </tr>
-                    </table>
+                    <StyledTable border="1">
+
+                        <thead>
+                            <th>이름</th>
+                            <th>성별</th>
+                            <th>검사일</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>{name}</td>
+                            <td>{gender === "100323" ? "남" : "여"}</td>
+                            <td>{realData.result["endDtm"].slice(0, 10).split("-").join(".")}</td>
+                            </tr>
+                        </tbody>
+                    </StyledTable>
                     </>
                 ) : undefined}
                 <ChartCC data={reportScores} name={name} ></ChartCC>
@@ -307,16 +317,91 @@ const ReportPage = ({history, location, useParams }) => {
 
 
                 </div>
-
-            <button
+                <br/>
+                <br/>
+            <AnyButton
                 onClick={(event) => {
                     alert('완료');
                     history.push("/")
                 }}>
                 처음으로
-            </button>
+            </AnyButton>
         </div>
     );
 };
+
+const StyledTable = styled.table`
+    margin: auto;
+    caption-side: top;
+    border: none;
+    border-collapse: collapse;
+    width : 80%;
+
+    caption-side: bottom;
+
+
+  /* vertical-align: baseline | sub | super | text-top | 
+                text-bottom | middle | top | bottom | 
+                <percentage> | <length> */
+
+  /* tbody {
+    vertical-align: top;
+  }              */
+  td,
+  th {
+    border: none;
+  }
+  /* td,
+  th {
+    border: 1px solid;
+  } */
+
+  td {
+    padding: 5px 10px;
+  }
+
+  tbody tr {
+    :nth-of-type(odd) {
+      background-color: #efefef;
+    }
+    :hover {
+      background-color: lightpink;
+    }
+  }
+  thead > th {
+    background-color: #ff7900;
+  }
+  caption {
+    font-size: 0.9em;
+    padding: 5px;
+    font-weight: bold;
+  }
+`;
+
+const Resultbox = styled.div `
+    margin : auto;
+    display: block;
+    background: #f6bd60;
+    width: 80%;
+    height: 10%;
+    padding: 20px 25px;
+    border-radius: 20px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.13);
+`;
+
+const AnyButton = styled.button `
+    text-align: center;
+    border: 0;
+    border-radius: 30px;
+    width: 30vw;
+    background: #9d4edd;
+    color: #fff;
+    font-size: 30px;
+    display: inline-block;
+    margin : auto;
+    justify-content: center;
+    
+
+`;
 
 export default ReportPage;

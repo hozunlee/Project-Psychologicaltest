@@ -10,7 +10,7 @@ import styled from "styled-components";
 const ExPage = ( { history, location, useParams } ) => {
     const inputs = location.state.inputs;
     const [exData, setExData] = useState([]);
-    const now1 = 0;
+    const [now, setNow] = useState(0);
     console.log(inputs)
 
 
@@ -30,16 +30,20 @@ const ExPage = ( { history, location, useParams } ) => {
       }, []); //2번째 array를 비워두면 한번만 실행하라는 뜻
     console.log(exData);
     
+    const onDateAdd = (e) => {
+            return setNow(now + 100)
+    }
+
 
     return (
         <div>
             
-            <h1 className='resultName'> {inputs.name}님 검사를 시작합니다.</h1>
+            <h1 className='resultName'> <b>{inputs.name}님 반가워요.</b><br/>검사를 시작해봅시다.</h1>
             <br/>
             <h1>검사 예시</h1>
             <div>
-                <p>{now1}%</p>
-                <ProgressBar now={now1} label={`${now1}%`} />
+                <p>{now}%</p>
+                <ProgressBar now={now}  />
                 
             </div>
             <br/>
@@ -47,12 +51,17 @@ const ExPage = ( { history, location, useParams } ) => {
                 가치의 뜻을 잘 모르겠다면 문항 아래에 있는 가치의 설명을 확인해보세요.
             </p>
             <Testbox className='testSheet'>
-            <h6> Q{exData.qitemNo}. {exData.question}</h6>
-                <input type="radio" name="answer" value="answer"></input>
-                <label for="answer">{exData.answer01}</label>
+            <h6 className="Qname"> Q{exData.qitemNo}. {exData.question}</h6>
+                <input type="radio" name="answer" value="answer" id="one"
+                onChange={onDateAdd}>
+
+                </input>
+                <label for="one">{exData.answer01}</label>
                 <p>{exData.answer03}</p>
-                <input type="radio" name="answer" value="answer"></input>
-                <label for="answer">{exData.answer02}</label>
+                <input type="radio" name="answer" value="answer" id="two"
+                onChange={onDateAdd}>
+                </input>
+                <label for="two">{exData.answer02}</label>
                 <p>{exData.answer04}</p>
             </Testbox>
             <br/>
@@ -60,14 +69,13 @@ const ExPage = ( { history, location, useParams } ) => {
             <AnyButton onClick={ () => {history.goBack()} }> 뒤로 버튼 </AnyButton>
             <AnyButton2 
             onClick={ (event) => {
-                alert('완료');
                 history.push({
                     pathname: `/QuestionPage`,
                     state: {inputs: inputs}
                     
                 })
                 }}
-                disabled={!exData}
+                disabled={!now}
                 
                 > 시작하기 </AnyButton2>
                 
@@ -82,7 +90,7 @@ const AnyButton = styled.button `
     width: 30vw;
     background: #264653;
     color: #fff;
-    font-size: 20px;
+    font-size: 30px;
     display: inline-block;
     margin : auto;
     justify-content: center;
@@ -96,7 +104,7 @@ const AnyButton2 = styled.button `
     width: 30vw;
     background: #264653;
     color: #fff;
-    font-size: 20px;
+    font-size: 30px;
     float:right; 
     display:inline-block;
     margin : auto;
@@ -104,13 +112,14 @@ const AnyButton2 = styled.button `
     `;
 
 const Testbox = styled.div`
-    background-color: #f4a261;
-    width: 100%;
-    height: 50%;
-    border-radius: 3px;
-    border : 3px;
-    display: block;
     margin : auto;
+    display: block;
+    background: #f4a261;
+    width: 80%;
+    height: 50%;
+    padding: 20px 25px;
+    border-radius: 20px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.13);
 `;
 
 export default ExPage;

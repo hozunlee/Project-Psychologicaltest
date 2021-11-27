@@ -1,4 +1,13 @@
 
+input[type="radio"] + label span {
+  display:inline-block;
+  width:19px;
+  height:19px;
+  margin:-2px 10px 0 0;
+  vertical-align:middle;
+  background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -38px top no-repeat;
+  cursor:pointer;
+}
 
 .App {
   text-align: center;
@@ -8,7 +17,7 @@
 
 html,
 body {
-
+  margin-top: 10%;
 }
 h1 {
   font-family: 'Do Hyeon', sans-serif;
@@ -58,3 +67,10 @@ li {
   color: darkslateblue;
 }
 
+h6 {
+  font-weight: 300;
+}
+
+.Qname {
+  font-weight: 600;
+}

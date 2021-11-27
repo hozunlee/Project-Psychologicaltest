@@ -1,9 +1,10 @@
 import React, {useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {Button} from "react-bootstrap";
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import work from './img/work.jpg'
+
 
 const Home = ( { history } ) => {
     const [inputs, setInputs] = useState({
@@ -29,9 +30,10 @@ const Home = ( { history } ) => {
             <div className="HomeImageContainer">
                 <Mainimg src={work} alt="workImg"/>
             </div>
+            <br />
+            <h5>이름</h5>
             <div>
-                이름
-                <br />
+                
                 <input
                 placeholder="이름을 입력하세요"
                 type="text" 
@@ -50,16 +52,30 @@ const Home = ( { history } ) => {
             </div>
             <br/>
             <div>
-                성별
-                <br />
-                <input type='radio'
-                name='gender'
-                value='100323'
-                onChange={genderHandler} />남성
-                <input type='radio'
-                name='gender'
-                value='100324'
-                onChange={genderHandler} />여성
+                <h5>성별</h5>
+
+                        <label For="one">
+                        <input type='radio'
+                        name='gender'
+                        value='100323'
+                        id = "one"
+                        onChange={genderHandler} />
+                        <span></span>
+                        남성</label>
+
+                        <div class="check"></div>
+
+                        <label For="two">
+                        <input type='radio'
+                        name='gender'
+                        value='100324'
+                        id = "two"
+                        onChange={genderHandler} />
+                        <span></span>
+                        여성</label>
+
+                        <div class="check"></div>
+
                 <br />
             </div>
             <br/>
@@ -94,7 +110,7 @@ const Title = styled.h1`
 const Mainimg = styled.img`
     margin-left: 20px;
     margin-right: 20px;
-    width: auto;
+    width: 100%;
     height: 200px;
     overflow: hidden;
     

@@ -3,8 +3,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import ReactPaginate from 'react-paginate'
 import styled from 'styled-components';
 import axios from 'axios';
-import _ from "lodash"
-
+import { useLocation } from "react-router-dom";
 
 const QuestionPage = ({history, location, useParams }) => {
     const inputs = location.state.inputs;
@@ -15,6 +14,17 @@ const QuestionPage = ({history, location, useParams }) => {
 
     // console.log(Object.keys(saveData).length) console.log(btnDisable)  5개 클릭시 버튼
     // 활성화 확인
+
+
+    function ScrollToTop() {
+        const { pathname } = useLocation();
+        
+            useEffect(() => {
+            window.scrollTo(0, 10);
+            }, [pathname]);
+        
+            return null;
+        }
 
     useEffect(() => {
         console.log("loading");
@@ -99,27 +109,31 @@ const QuestionPage = ({history, location, useParams }) => {
         .map((item, idx) => {
             return (
                 <div>
+                    
                     <Testbox>
-                        <h6 key={item.qitemNo}>
+                        <h6 className="Qname" 
+                        key={item.qitemNo}>
                             Q{item.qitemNo}. {item.question}</h6>
                             
                         <form>
 
-                            <label for='answer'>
+                            <label for={item.answerScore01}>
                                 <input
                                     type="radio"
                                     name={item.qitemNo}
                                     value={item.answerScore01}
+                                    id = {item.answerScore01}
                                     checked={saveData[String(item.qitemNo)] === item.answerScore01 ? true : false }
                                     onChange={onDateAdd}
                                     ></input>
                                 {item.answer01}</label>
-
-                            <label for={item.answer02}>
+                            <br/>
+                            <label for={item.answerScore02}>
                                 <input
                                     type="radio"
                                     name={item.qitemNo}
                                     value={item.answerScore02}
+                                    id = {item.answerScore02}
                                     checked={saveData[String(item.qitemNo)] === item.answerScore02 ? true : false }
                                     onChange={onDateAdd}
                                     ></input>
@@ -144,19 +158,20 @@ const QuestionPage = ({history, location, useParams }) => {
 
     return (
         <div>
-            <h1 className='resultName'> {inputs.name}님 검사를 시작합니다.<b>{inputs.gender}</b></h1>
-            <h1>검사 진행</h1>
+            <h1 className='resultName'> {inputs.name}님 검사를 시작합니다.</h1>
+            <h2><b>검사 진행</b></h2>
             <div>
                 <p>{now}%</p>
                 <ProgressBar now={now} label={`${now}%`}/>
 
             </div>
             <br/>
-            <h4>
+            <p>
                 직업과 관련된 두개의 가치 중에서 자기에게 더 중요한 가치에 표시하세요.<br/>
                 가치의 뜻을 잘 모르겠다면 문항 아래에 있는 가치의 설명을 확인해보세요.
-            </h4>
+            </p>
             <div>
+            
                 {displayData}
                 <ReactPaginate 
                 previousLabel={<AnyButton
@@ -186,6 +201,9 @@ const QuestionPage = ({history, location, useParams }) => {
                                 })
                             } else {
                                 setNow(now + 18)
+                                window.scrollTo({top:100, behavior:'smooth'});
+
+                                
                             }
 
                         }
@@ -210,27 +228,39 @@ const AnyButton = styled.button `
     text-align: center;
     border: 0;
     border-radius: 30px;
-    width: 30vw;
+    width: 50vw;
     background: #264653;
     color: #fff;
     font-size: 30px;
     display: inline-block;
     margin : auto;
     justify-content: center;
+
     
 
 `;
 
+
 const Testbox = styled.div `
-    background-color: #f4a261;
-    width: 80%;
-    height: 50%;
-    border-radius: 3px;
-    border : 3px;
-    display: block;
     margin : auto;
-    font-color : white;
+    display: block;
+    background: #f4a261;
+    width: 80%;
+    height: 10%;
+    padding: 20px 25px;
+    border-radius: 20px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.13);
 `;
+// const Testbox = styled.div `
+//     background-color: #f4a261;
+//     width: 80%;
+//     height: 50%;
+//     border-radius: 3px;
+//     border : 3px;
+//     display: block;
+//     margin : auto;
+//     font-color : white;
+// `;
 
 const Radiobox = styled.form `
 `;
