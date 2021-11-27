@@ -102,7 +102,7 @@ const Home = ( { history } ) => {
 }
 
 const Title = styled.h1`
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 500;
     color: #264653;
 `;
